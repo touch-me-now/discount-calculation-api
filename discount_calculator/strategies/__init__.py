@@ -1,0 +1,3 @@
+from discount_calculator.strategies.quantity import QuantityDiscountStrategy
+from discount_calculator.strategies.loyalty import LoyaltyDiscountStrategy
+
