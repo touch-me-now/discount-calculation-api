@@ -8,7 +8,7 @@ from discount_calculator.utils import percent_part_amount, into_monetary_format
 
 class LoyaltyDiscountStrategy(BaseDiscountStrategy):
     """
-    If is_loaylty is sent in the context, the amount of the percentage of amount will be calculated
+    If is_loyalty is sent in the context, the amount of the percentage of amount will be calculated
     """
     discount_type = DiscountType.LOYALTY
 
