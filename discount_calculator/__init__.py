@@ -9,7 +9,9 @@ from discount_calculator.strategies import QuantityDiscountStrategy, LoyaltyDisc
 
 def calculate_discounts(amount: Decimal, is_loyal: bool | None = None, min_amount: Decimal | None = None):
     """
-    Calculates discounts based on the passed parameters. Step by step
+    Calculates discounts based on the passed parameters.
+    This is the main function with list as calculation queue.
+    With the proper parameters, strategy will be added to the list and executed one by one.
 
     :param amount: Decimal
         Total order amount before discounts are applied.
