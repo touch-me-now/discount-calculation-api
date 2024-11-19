@@ -18,15 +18,15 @@ app = FastAPI(
 
 
 class CartItem(BaseModel):
-    id: int
-    quantity: int = Field(ge=1)
-    price: Decimal = Field(ge=0.01, decimal_places=2)
+    id: int = Field(description="Unique identifier of the product in the cart")
+    quantity: int = Field(ge=1, description="Quantity of product in cart")
+    price: Decimal = Field(ge=0.01, decimal_places=2, description="Unit product price")
 
 
 class CalculationInput(BaseModel):
-    amount: Decimal = Field(ge=0.01, decimal_places=2)
-    is_loyal: bool = False
-    cart_items: list[CartItem] = None
+    amount: Decimal = Field(ge=Decimal("0.01"), decimal_places=2, description="Total order amount")
+    is_loyal: bool = Field(False, description="Is loyal customer")
+    cart_items: list[CartItem] = Field(None, description="list of product items in cart")
 
     @property
     def cart_amount(self) -> Decimal:
