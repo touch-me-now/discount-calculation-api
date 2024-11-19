@@ -39,12 +39,41 @@ class CalculationInput(BaseModel):
         return self
 
 
-@app.post("/api/calculate-discount/", status_code=status.HTTP_200_OK)
+@app.post(
+    "/api/calculate-discount/",
+    response_model=DiscountItem,
+    status_code=status.HTTP_200_OK,
+    summary="Calculate discounts based on order total and loyalty status",
+    response_description="Returns the final amount with applicable discounts",
+)
 def calculate_discount(
     form_data: CalculationInput,
 ) -> DiscountItem:
     """
-    calculates discounts in the cart based on the order amount and customer loyalty status.
+    Calculates discounts in the cart based on the order amount and customer loyalty.
+
+    **Request Example:**
+    ```json
+    {
+        "amount": "150.00",
+        "is_loyal": true,
+        "cart_items": [
+            {"id": 1, "quantity": 2, "price": "50.00"},
+            {"id": 2, "quantity": 1, "price": "50.00"}
+        ]
+    }
+    ```
+
+    **Response Example:**
+    ```json
+    {
+        "original_amount": "150.00",
+        "quantity_discount": "15.00",
+        "loyalty_discount": "6.75",
+        "final_amount": "128.25",
+        "applied_discounts": ["quantity", "loyalty"]
+    }
+    ```
     """
     return calculate_discounts(
         amount=form_data.amount,
