@@ -53,6 +53,22 @@ class CalculationInput(BaseModel):
     status_code=status.HTTP_200_OK,
     summary="Calculate discounts based on order total and loyalty status",
     response_description="Returns the final amount with applicable discounts",
+    responses={
+        200: {
+            "description": "Successfully discounts calculation",
+            "content": {
+                "application/json": {
+                    "example": {
+                        "original_amount": "150.00",
+                        "quantity_discount": "15.00",
+                        "loyalty_discount": "6.75",
+                        "final_amount": "128.25",
+                        "applied_discounts": ["quantity", "loyalty"],
+                    }
+                }
+            },
+        },
+    },
 )
 def calculate_discount(
     form_data: CalculationInput,
