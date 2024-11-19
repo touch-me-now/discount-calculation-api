@@ -75,3 +75,30 @@ def test_calculate_discount(payload, expected_response):
 
     assert response.status_code == 200
     assert response.json() == expected_response
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {
+            "amount": "100.00",  # invalid amount
+            "is_loyal": False,
+            "cart_items": [
+                {"id": 1, "quantity": 1, "price": "50.00"}
+            ],
+        },
+        {
+            "amount": "100.00",  # invalid amount
+            "is_loyal": False,
+            "cart_items": [
+                # total amount is 150.00
+                {"id": 1, "quantity": 1, "price": "50.00"},
+                {"id": 1, "quantity": 2, "price": "50.00"},
+            ],
+        },
+    ],
+)
+def test_invalid_cart_amount(payload):
+    response = client.post("/api/calculate-discount/", json=payload)
+    assert response.status_code == 422
+
