@@ -7,6 +7,9 @@ from discount_calculator.utils import percent_part_amount, into_monetary_format
 
 
 class QuantityDiscountStrategy(BaseDiscountStrategy):
+    """
+    If total amount > minimum amount then the percentage of total amount is calculated
+    """
     discount_type = DiscountType.QUANTITY
 
     def execute(self, amount: Decimal, context: QuantityContext) -> Decimal:

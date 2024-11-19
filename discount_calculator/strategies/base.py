@@ -6,6 +6,12 @@ from discount_calculator.enums import DiscountType
 
 
 class BaseDiscountStrategy:
+    """
+    Base strategy class
+    Each strategy can have its own context, which must also be implemented
+    by class inheritance DiscountBaseContext
+    """
+
     discount_type: DiscountType = None
 
     def __init__(self, discount_percent: Decimal):
