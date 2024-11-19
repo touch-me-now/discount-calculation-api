@@ -9,6 +9,14 @@ from config import settings
 from discount_calculator import calculate_discounts
 from discount_calculator.models import DiscountItem
 
+print(
+    """
+    ▗▄▄▖▗▖  ▗▖    ▗▄▄▄ ▗▄▄▄▖▗▖  ▗▖▗▖  ▗▖▗▖ ▗▖▗▄▄▖ 
+    ▐▌ ▐▌▝▚▞▘     ▐▌  █  █  ▐▛▚▖▐▌▐▛▚▖▐▌▐▌ ▐▌▐▌ ▐▌
+    ▐▛▀▚▖ ▐▌      ▐▌  █  █  ▐▌ ▝▜▌▐▌ ▝▜▌▐▌ ▐▌▐▛▀▚▖
+    ▐▙▄▞▘ ▐▌      ▐▙▄▄▀▗▄█▄▖▐▌  ▐▌▐▌  ▐▌▝▚▄▞▘▐▌ ▐▌
+    """
+)
 
 app = FastAPI(
     debug=settings.debug,
