@@ -7,7 +7,32 @@ from discount_calculator.models import DiscountCalculator, DiscountItem
 from discount_calculator.strategies import QuantityDiscountStrategy, LoyaltyDiscountStrategy
 
 
-def calculate_discounts(amount: Decimal, is_loyal: bool = None, min_amount: Decimal = None):
+def calculate_discounts(amount: Decimal, is_loyal: bool | None = None, min_amount: Decimal | None = None):
+    """
+    Calculates discounts based on the passed parameters. Step by step
+
+    :param amount: Decimal
+        Total order amount before discounts are applied.
+        Example: Decimal("150.00")
+
+    :param is_loyal: bool
+        Indicates whether the customer is loyal.
+        - True: loyal customer (may receive a discount for loyalty).
+        - False: customer is not loyal.
+        Example: True
+
+    :param min_amount:
+        Minimum order amount required for quantity discount to apply.
+        Example: Decimal("100.00")
+
+    :return: DiscountItem
+        An object containing detailed information about applied discounts:
+        - `original_amount`: original order amount before discounts.
+        - `quantity_discount`: quantity discount amount (if applicable).
+        - `loyalty_discount`: loyalty discount amount (if applicable).
+        - `final_amount`: final order amount after all discounts.
+        - `applied_discounts`: list of discount types applied (e.g. ["quantity", "loyalty"]).
+    """
     discount_calculators = []
 
     if min_amount:
