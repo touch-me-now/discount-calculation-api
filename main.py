@@ -13,17 +13,25 @@ from discount_calculator.models import DiscountItem
 app = FastAPI(
     debug=settings.debug,
     title="Discount calculation API",
+    summary="Simple REST API for calculating discounts",
     version="0.1.0"
 )
 
 
 class CartItem(BaseModel):
+    """Model product item in cart"""
     id: int = Field(description="Unique identifier of the product in the cart")
     quantity: int = Field(ge=1, description="Quantity of product in cart")
     price: Decimal = Field(ge=0.01, decimal_places=2, description="Unit product price")
 
 
 class CalculationInput(BaseModel):
+    """
+    Model cart and calculation form input structure
+
+    **Special raises:**
+    ```ValidationError if amount does not match the amount of products in cart_items```
+    """
     amount: Decimal = Field(ge=Decimal("0.01"), decimal_places=2, description="Total order amount")
     is_loyal: bool = Field(False, description="Is loyal customer")
     cart_items: list[CartItem] = Field(None, description="list of product items in cart")

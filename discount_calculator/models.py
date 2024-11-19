@@ -1,6 +1,6 @@
 from decimal import Decimal
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 from discount_calculator.contexts import DiscountBaseContext
 from discount_calculator.enums import DiscountType
@@ -23,13 +23,14 @@ class DiscountCalculator(BaseModel):
 
 
 class DiscountItem(BaseModel):
+    """output model after calculating discounts """
     model_config = ConfigDict(use_enum_values=True)
 
-    original_amount: Decimal
-    quantity_discount: Decimal = Decimal("0.00")
-    loyalty_discount: Decimal = Decimal("0.00")
-    final_amount: Decimal | None = None
-    applied_discounts: list[DiscountType] = []
+    original_amount: Decimal = Field(description="Initial order amount")
+    quantity_discount: Decimal = Field(Decimal("0.00"), description="Calculated quantity discount amount")
+    loyalty_discount: Decimal = Field(Decimal("0.00"), description="Calculated loyalty discount amount")
+    final_amount: Decimal | None = Field(None, description="Order amount after deducting all discounts")
+    applied_discounts: list[DiscountType] = Field([], description="types of discounts that have been applied")
 
     def model_post_init(self, __context):
         if self.final_amount is None:
