@@ -30,7 +30,7 @@ class CalculationInput(BaseModel):
 
     @property
     def cart_amount(self) -> Decimal:
-        return sum([item.price for item in self.cart_items or []])
+        return sum([item.price * item.quantity for item in self.cart_items or []])
 
     @model_validator(mode='after')
     def check_amount(self) -> Self:
