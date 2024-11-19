@@ -11,15 +11,12 @@ def test_success_calculate_discounts():
         min_amount=Decimal("100.00")
     )
 
-    expected = DiscountItem(
-        original_amount=Decimal('150.00'),
-        quantity_discount=Decimal('15.00'),
-        loyalty_discount=Decimal('7.50'),
-        final_amount=Decimal('127.50'),
-        applied_discounts=['quantity', 'loyalty']
-    )
-
-    assert expected == item
+    assert isinstance(item, DiscountItem)
+    assert item.original_amount == Decimal("150.00")
+    assert item.quantity_discount == Decimal("15.00")
+    assert item.loyalty_discount == Decimal("7.50")
+    assert item.final_amount == Decimal("127.50")
+    assert item.applied_discounts == ['quantity', 'loyalty']
 
 
 def test_empty_params_calculation():
