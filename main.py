@@ -1,7 +1,8 @@
 from decimal import Decimal
+from typing import Self
 
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from starlette import status
 
 from config import settings
@@ -26,6 +27,16 @@ class CalculationInput(BaseModel):
     amount: Decimal = Field(ge=0.01, decimal_places=2)
     is_loyal: bool = False
     cart_items: list[CartItem] = None
+
+    @property
+    def cart_amount(self) -> Decimal:
+        return sum([item.price for item in self.cart_items or []])
+
+    @model_validator(mode='after')
+    def check_amount(self) -> Self:
+        if self.amount != self.cart_amount:
+            raise ValueError('amount do not match with cart items amount')
+        return self
 
 
 @app.post("/api/calculate-discount/", status_code=status.HTTP_200_OK)
