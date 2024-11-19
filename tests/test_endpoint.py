@@ -72,9 +72,6 @@ client = TestClient(app)
 )
 def test_calculate_discount(payload, expected_response):
     response = client.post("/api/calculate-discount/", json=payload)
-    assert response.status_code == 200, response.json()
 
-    print(response.json())
-    print(expected_response)
-
-    assert response.json() == expected_response, response.json()
+    assert response.status_code == 200
+    assert response.json() == expected_response
