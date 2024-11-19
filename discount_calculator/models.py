@@ -28,7 +28,7 @@ class DiscountItem(BaseModel):
     original_amount: Decimal
     quantity_discount: Decimal = Decimal("0.00")
     loyalty_discount: Decimal = Decimal("0.00")
-    final_amount: Decimal = None
+    final_amount: Decimal | None = None
     applied_discounts: list[DiscountType] = []
 
     def model_post_init(self, __context):
