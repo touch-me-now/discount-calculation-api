@@ -32,7 +32,7 @@ def calculate_discounts(amount: Decimal, is_loyal: bool = None, min_amount: Deci
     applied, collected_amounts = [], {}
 
     for calculator in discount_calculators:
-        discount_amount = calculator.calculate(amount)
+        discount_amount = calculator.calculate(copied_amount)
         collected_amounts[calculator.name] = discount_amount
 
         if discount_amount > 0:
